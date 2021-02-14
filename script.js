@@ -51,6 +51,7 @@ const original = function() {
   body.style.background = "linear-gradient(to right, #9003fc, #fc0335)";
   resetButton.classList.add("button-disabled");
   startButton.classList.remove("button-disabled");
+  startButton.disabled = false;
   turnSign.classList.add("hidden");
   instructions.classList.remove("hidden");
   for (let i = 0; i < allImages.length; i++) {
@@ -121,6 +122,7 @@ original();
 
 startButton.addEventListener("click", function() {
   startButton.classList.add("button-disabled");
+  startButton.disabled = true;
   resetButton.classList.remove("button-disabled");
   currentPlayer = players[(Math.floor(Math.random()*2))];
   turnSign.textContent = `${currentPlayer}'s turn`;
