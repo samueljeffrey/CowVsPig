@@ -11,16 +11,6 @@ const players = ["Cow", "Pig"];
 let currentPlayer;
 let playCount = 0;
 
-const sq1 = document.querySelector(".sq1");
-const sq2 = document.querySelector(".sq2");
-const sq3 = document.querySelector(".sq3");
-const sq4 = document.querySelector(".sq4");
-const sq5 = document.querySelector(".sq5");
-const sq6 = document.querySelector(".sq6");
-const sq7 = document.querySelector(".sq7");
-const sq8 = document.querySelector(".sq8");
-const sq9 = document.querySelector(".sq9");
-
 const img1 = document.querySelector(".sq1-img");
 const img2 = document.querySelector(".sq2-img");
 const img3 = document.querySelector(".sq3-img");
@@ -44,6 +34,10 @@ const btn9 = document.querySelector("#btn9");
 let animalNoise;
 const fartNoise = new Audio("Fart.mp3");
 const triumphNoise = new Audio("Triumph.mp3");
+
+let taken1;
+let taken5;
+let taken9;
 
 
 
@@ -83,6 +77,9 @@ const original = function() {
   btn8.classList.add("hidden");
   btn9.classList.add("hidden");
   playCount = 0;
+  taken1 = false;
+  taken5 = false;
+  taken9 = false;
 }
 
 const winner = function() {
@@ -122,6 +119,24 @@ const switchPlayer = function() {
   turnSign.textContent = `${currentPlayer}'s turn`;
 }
 
+const check = function() {
+  playCount++;
+  if ((img1.src == img2.src && img1.src == img3.src && taken1)
+      || (img1.src == img4.src && img1.src == img7.src && taken1)
+      || (img5.src == img1.src && img5.src == img9.src && taken5)
+      || (img5.src == img7.src && img5.src == img3.src && taken5)
+      || (img5.src == img2.src && img5.src == img8.src && taken5)
+      || (img5.src == img4.src && img5.src == img6.src && taken5)
+      || (img9.src == img7.src && img9.src == img8.src && taken9)
+      || (img9.src == img6.src && img9.src == img3.src && taken9)) {
+    winner();
+  } else if (playCount == 9) {
+    failed();
+  } else {
+    switchPlayer();
+  }
+}
+
 
 
 // ORIGINAL
@@ -148,60 +163,11 @@ startButton.addEventListener("click", function() {
   btn7.classList.remove("hidden");
   btn8.classList.remove("hidden");
   btn9.classList.remove("hidden");
-  img1.classList.add("hidden");
-  img2.classList.add("hidden");
-  img3.classList.add("hidden");
-  img4.classList.add("hidden");
-  img5.classList.add("hidden");
-  img6.classList.add("hidden");
-  img7.classList.add("hidden");
-  img8.classList.add("hidden");
-  img9.classList.add("hidden");
-  img1.src = "";
-  img2.src = "";
-  img3.src = "";
-  img4.src = "";
-  img5.src = "";
-  img6.src = "";
-  img7.src = "";
-  img8.src = "";
-  img9.src = "";
 })
 
 resetButton.addEventListener("click", function() {
   original();
 })
-
-
-
-// CHECK
-
-// const checkResult = function() {
-//   if (img1.src == `${currentPlayer}.png` && img2.src == `${currentPlayer}.png` && img3.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img4.src == `${currentPlayer}.png` && img5.src == `${currentPlayer}.png` && img6.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img7.src == `${currentPlayer}.png` && img8.src == `${currentPlayer}.png` && img9.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img1.src == `${currentPlayer}.png` && img4.src == `${currentPlayer}.png` && img7.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img2.src == `${currentPlayer}.png` && img5.src == `${currentPlayer}.png` && img8.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img3.src == `${currentPlayer}.png` && img6.src == `${currentPlayer}.png` && img9.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img1.src == `${currentPlayer}.png` && img5.src == `${currentPlayer}.png` && img9.src == `${currentPlayer}.png`) {
-//     winner();
-//   } else if (img3.src == `${currentPlayer}.png` && img5.src == `${currentPlayer}.png` && img7.src == `${currentPlayer}.png`) {
-//     winner();
-//
-//   } else if (playCount == 9) {
-//     failed();
-//   } else {
-//     switchPlayer();
-//   }
-// }
-
-
 
 
 
@@ -211,124 +177,64 @@ btn1.addEventListener("click", function() {
   btn1.classList.add("hidden");
   img1.classList.remove("hidden");
   img1.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img1.src == img2.src && img1.src == img3.src) || (img1.src == img4.src && img1.src == img7.src) || (img1.src == img5.src && img1.src == img9.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  taken1 = true;
+  check();
 })
 
 btn2.addEventListener("click", function() {
   btn2.classList.add("hidden");
   img2.classList.remove("hidden");
   img2.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img2.src == img1.src && img2.src == img3.src) || (img2.src == img5.src && img2.src == img8.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn3.addEventListener("click", function() {
   btn3.classList.add("hidden");
   img3.classList.remove("hidden");
   img3.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img3.src == img2.src && img3.src == img1.src) || (img3.src == img6.src && img3.src == img9.src) || (img3.src == img5.src && img3.src == img7.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn4.addEventListener("click", function() {
   btn4.classList.add("hidden");
   img4.classList.remove("hidden");
   img4.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img4.src == img5.src && img4.src == img6.src) || (img4.src == img1.src && img4.src == img7.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn5.addEventListener("click", function() {
   btn5.classList.add("hidden");
   img5.classList.remove("hidden");
   img5.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img5.src == img1.src && img5.src == img9.src) || (img5.src == img3.src && img5.src == img7.src) || (img5.src == img2.src && img5.src == img8.src) || (img5.src == img4.src && img5.src == img6.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  taken5 = true;
+  check();
 })
 
 btn6.addEventListener("click", function() {
   btn6.classList.add("hidden");
   img6.classList.remove("hidden");
   img6.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img6.src == img4.src && img6.src == img5.src) || (img6.src == img9.src && img6.src == img3.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn7.addEventListener("click", function() {
   btn7.classList.add("hidden");
   img7.classList.remove("hidden");
   img7.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img7.src == img1.src && img7.src == img4.src) || (img7.src == img8.src && img7.src == img9.src) || (img7.src == img5.src && img7.src == img3.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn8.addEventListener("click", function() {
   btn8.classList.add("hidden");
   img8.classList.remove("hidden");
   img8.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img8.src == img2.src && img8.src == img5.src) || (img8.src == img7.src && img8.src == img9.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  check();
 })
 
 btn9.addEventListener("click", function() {
   btn9.classList.add("hidden");
   img9.classList.remove("hidden");
   img9.src = `${currentPlayer}.png`;
-  playCount++;
-  if ((img9.src == img1.src && img9.src == img5.src) || (img9.src == img3.src && img9.src == img6.src) || (img9.src == img7.src && img9.src == img8.src)) {
-    winner();
-  } else if (playCount == 9) {
-    failed();
-  } else {
-    switchPlayer();
-  }
+  taken9 = true;
+  check();
 })
