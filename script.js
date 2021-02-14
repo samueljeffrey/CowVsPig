@@ -122,7 +122,7 @@ original();
 
 startButton.addEventListener("click", function() {
   startButton.classList.add("button-disabled");
-  startButton.disabled = true;
+  startButton.disabled;
   resetButton.classList.remove("button-disabled");
   currentPlayer = players[(Math.floor(Math.random()*2))];
   turnSign.textContent = `${currentPlayer}'s turn`;
