@@ -21,6 +21,8 @@ const img7 = document.querySelector(".sq7-img");
 const img8 = document.querySelector(".sq8-img");
 const img9 = document.querySelector(".sq9-img");
 
+const allImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
+
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
@@ -30,6 +32,8 @@ const btn6 = document.querySelector("#btn6");
 const btn7 = document.querySelector("#btn7");
 const btn8 = document.querySelector("#btn8");
 const btn9 = document.querySelector("#btn9");
+
+const allButtons = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9];
 
 let animalNoise;
 const fartNoise = new Audio("Fart.mp3");
@@ -49,33 +53,13 @@ const original = function() {
   startButton.classList.remove("button-disabled");
   turnSign.classList.add("hidden");
   instructions.classList.remove("hidden");
-  img1.classList.add("hidden");
-  img2.classList.add("hidden");
-  img3.classList.add("hidden");
-  img4.classList.add("hidden");
-  img5.classList.add("hidden");
-  img6.classList.add("hidden");
-  img7.classList.add("hidden");
-  img8.classList.add("hidden");
-  img9.classList.add("hidden");
-  img1.src = "";
-  img2.src = "";
-  img3.src = "";
-  img4.src = "";
-  img5.src = "";
-  img6.src = "";
-  img7.src = "";
-  img8.src = "";
-  img9.src = "";
-  btn1.classList.add("hidden");
-  btn2.classList.add("hidden");
-  btn3.classList.add("hidden");
-  btn4.classList.add("hidden");
-  btn5.classList.add("hidden");
-  btn6.classList.add("hidden");
-  btn7.classList.add("hidden");
-  btn8.classList.add("hidden");
-  btn9.classList.add("hidden");
+  for (let i = 0; i < allImages.length; i++) {
+    allImages[i].classList.add("hidden");
+    allImages[i].src = "";
+  }
+  for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].classList.add("hidden");
+  }
   playCount = 0;
   taken1 = false;
   taken5 = false;
@@ -83,30 +67,18 @@ const original = function() {
 }
 
 const winner = function() {
-  btn1.classList.add("hidden");
-  btn2.classList.add("hidden");
-  btn3.classList.add("hidden");
-  btn4.classList.add("hidden");
-  btn5.classList.add("hidden");
-  btn6.classList.add("hidden");
-  btn7.classList.add("hidden");
-  btn8.classList.add("hidden");
-  btn9.classList.add("hidden");
+  for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].classList.add("hidden");
+  }
   body.style.background = "linear-gradient(to right, #00d150, #a2ff30)";
   turnSign.textContent = `${currentPlayer} wins!`;
   triumphNoise.play();
 }
 
 const failed = function() {
-  btn1.classList.add("hidden");
-  btn2.classList.add("hidden");
-  btn3.classList.add("hidden");
-  btn4.classList.add("hidden");
-  btn5.classList.add("hidden");
-  btn6.classList.add("hidden");
-  btn7.classList.add("hidden");
-  btn8.classList.add("hidden");
-  btn9.classList.add("hidden");
+  for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].classList.add("hidden");
+  }
   body.style.background = "linear-gradient(to right, #8c2c00, #db5400)";
   turnSign.textContent = "Nobody wins!";
   fartNoise.play();
@@ -154,15 +126,9 @@ startButton.addEventListener("click", function() {
   turnSign.textContent = `${currentPlayer}'s turn`;
   turnSign.classList.remove("hidden");
   instructions.classList.add("hidden");
-  btn1.classList.remove("hidden");
-  btn2.classList.remove("hidden");
-  btn3.classList.remove("hidden");
-  btn4.classList.remove("hidden");
-  btn5.classList.remove("hidden");
-  btn6.classList.remove("hidden");
-  btn7.classList.remove("hidden");
-  btn8.classList.remove("hidden");
-  btn9.classList.remove("hidden");
+  for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].classList.remove("hidden");
+  }
 })
 
 resetButton.addEventListener("click", function() {
@@ -173,32 +139,29 @@ resetButton.addEventListener("click", function() {
 
 // GAMEPLAY
 
+for (let i = 1; i < 4; i++) {
+  allButtons[i].addEventListener("click", function() {
+    allButtons[i].classList.add("hidden");
+    allImages[i].classList.remove("hidden");
+    allImages[i].src = `${currentPlayer}.png`;
+    check();
+  })
+}
+
+for (let i = 5; i < 8; i++) {
+  allButtons[i].addEventListener("click", function() {
+    allButtons[i].classList.add("hidden");
+    allImages[i].classList.remove("hidden");
+    allImages[i].src = `${currentPlayer}.png`;
+    check();
+  })
+}
+
 btn1.addEventListener("click", function() {
   btn1.classList.add("hidden");
   img1.classList.remove("hidden");
   img1.src = `${currentPlayer}.png`;
   taken1 = true;
-  check();
-})
-
-btn2.addEventListener("click", function() {
-  btn2.classList.add("hidden");
-  img2.classList.remove("hidden");
-  img2.src = `${currentPlayer}.png`;
-  check();
-})
-
-btn3.addEventListener("click", function() {
-  btn3.classList.add("hidden");
-  img3.classList.remove("hidden");
-  img3.src = `${currentPlayer}.png`;
-  check();
-})
-
-btn4.addEventListener("click", function() {
-  btn4.classList.add("hidden");
-  img4.classList.remove("hidden");
-  img4.src = `${currentPlayer}.png`;
   check();
 })
 
@@ -210,27 +173,6 @@ btn5.addEventListener("click", function() {
   check();
 })
 
-btn6.addEventListener("click", function() {
-  btn6.classList.add("hidden");
-  img6.classList.remove("hidden");
-  img6.src = `${currentPlayer}.png`;
-  check();
-})
-
-btn7.addEventListener("click", function() {
-  btn7.classList.add("hidden");
-  img7.classList.remove("hidden");
-  img7.src = `${currentPlayer}.png`;
-  check();
-})
-
-btn8.addEventListener("click", function() {
-  btn8.classList.add("hidden");
-  img8.classList.remove("hidden");
-  img8.src = `${currentPlayer}.png`;
-  check();
-})
-
 btn9.addEventListener("click", function() {
   btn9.classList.add("hidden");
   img9.classList.remove("hidden");
@@ -238,3 +180,4 @@ btn9.addEventListener("click", function() {
   taken9 = true;
   check();
 })
+
